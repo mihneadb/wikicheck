@@ -1,10 +1,16 @@
 var action;
 
 $("#query").keyup(function(event) {
+    var input = $("#query").val().trim();
+    if (!input) {
+        $("#info").html("");
+        return;
+    }
+
     var data = {
         format: "json",
         action: "query",
-        titles: encodeURIComponent($("#query").val().replace(/ /g, "_")),
+        titles: encodeURIComponent(input.replace(/ /g, "_")),
         prop: "revisions",
         rvprop: "content",
         rvsection: 0,
