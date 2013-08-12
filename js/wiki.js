@@ -7,7 +7,7 @@ $("#query").keyup(function(event) {
         data: {
             format: "json",
             action: "query",
-            titles: encodeURIComponent($("#query").val()),
+            titles: encodeURIComponent($("#query").val().replace(/ /g, "_")),
             prop: "revisions",
             rvprop: "content",
             rvsection: 0,
