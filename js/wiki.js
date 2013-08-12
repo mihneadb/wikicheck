@@ -1,6 +1,6 @@
+var action;
+
 $("#query").keyup(function(event) {
-    // FIXME
-    // Keyup triggeres too many requests !
     var data = {
         format: "json",
         action: "query",
@@ -10,13 +10,19 @@ $("#query").keyup(function(event) {
         rvsection: 0,
         rvparse: "",
     }
-    $.ajax({
-        url: 'http://en.wikipedia.org/w/api.php?callback=?',
-        dataType: 'json',
-        data: data,
-        success: successHandler,
-        error: errorHandler
-    });
+
+    if (action) {
+        window.clearTimeout(action);
+    }
+    action = window.setTimeout(function() {
+        $.ajax({
+            url: 'http://en.wikipedia.org/w/api.php?callback=?',
+            dataType: 'json',
+            data: data,
+            success: successHandler,
+            error: errorHandler
+        });
+    }, 250);
 });
 
 function successHandler (data) {
