@@ -1,31 +1,31 @@
-$(document).ready(function() {
-
 $("#query").keyup(function(event) {
+    // FIXME
+    // Keyup triggeres too many requests !
+    var data = {
+        format: "json",
+        action: "query",
+        titles: encodeURIComponent($("#query").val()),
+        prop: "revisions",
+        rvprop: "content",
+        rvsection: 0,
+        rvparse: "",
+    }
     $.ajax({
-        type: "GET",
-        url: "http://en.wikipedia.org/w/api.php?callback=?",
-        data: {
-            format: "json",
-            action: "query",
-            titles: encodeURIComponent($("#query").val().replace(/ /g, "_")),
-            prop: "revisions",
-            rvprop: "content",
-            rvsection: 0,
-            rvparse: "",
-        },
-        success:
-            function(data) {
-                console.log("data!!");
-
-                for (name in data.query.pages) {
-                    $("#info").html(data.query.pages[name].revisions[0]["*"]);
-                }
-            },
-        dataType: "json",
-        error: function(a, b, c) {
-            $("#debug").html(b);
-        }
+        url: 'http://en.wikipedia.org/w/api.php?callback=?',
+        dataType: 'json',
+        data: data,
+        success: successHandler,
+        error: errorHandler
     });
 });
 
-});
+function successHandler (data) {
+    for (name in data.query.pages) {
+        var page = data.query.pages;
+        $("#info").html(page[name].revisions[0]["*"]);
+    }
+}
+
+function errorHandler (err) {
+    console.error(err);
+}
