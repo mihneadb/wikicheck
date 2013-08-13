@@ -1,3 +1,9 @@
+$("#query").focus();
+$(document).click(function() {
+    $("#query").focus();
+});
+
+
 //http://stackoverflow.com/a/5574446
 String.prototype.toProperCase = function () {
         return this.replace(/\w\S*/g, function(txt) {
