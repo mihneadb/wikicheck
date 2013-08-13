@@ -6,6 +6,9 @@ $(window).resize(function() {
     $("#info").height(height);
 });
 
+$("#images").change(queryWiki);
+$("#infobox").change(queryWiki);
+$("#links").change(queryWiki);
 
 $("#query").focus();
 $(document).click(function() {
@@ -22,7 +25,9 @@ String.prototype.toProperCase = function () {
 
 var action;
 
-$("#query").keyup(function(event) {
+$("#query").keyup(queryWiki);
+
+function queryWiki() {
     if (action) {
         window.clearTimeout(action);
     }
@@ -55,7 +60,7 @@ $("#query").keyup(function(event) {
             error: errorHandler
         });
     }, 250);
-});
+}
 
 function successHandler (data) {
     for (name in data.query.pages) {
@@ -64,15 +69,26 @@ function successHandler (data) {
             content = page[name].revisions[0]["*"];
             $("#info").html(content);
 
-            // fix all the links
-            $("a").each(function() {
-                this.href = this.href.replace(window.location.origin, "http://en.wikipedia.org");
-            });
+            if ($("#links").is(":checked")) {
+                // fix all the links
+                $("a").each(function() {
+                    this.href = this.href.replace(window.location.origin, "http://en.wikipedia.org");
+                });
+            } else {
+                // change links to <em>
+                content = content.replace(/<a/g, "<em");
+                content = content.replace(/<\/a/g, "</em");
+                $("#info").html(content);
+            }
 
             // strip content
             $(".error").remove();
-            $(".infobox").remove();
-            $(".thumb").remove();
+            if (!$("#infobox").is(":checked")) {
+                $(".infobox").remove();
+            }
+            if (!$("#images").is(":checked")) {
+                $(".thumb").remove();
+            }
             return;
         }
     }

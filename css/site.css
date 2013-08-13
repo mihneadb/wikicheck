@@ -9,3 +9,9 @@
 #info {
     overflow: auto;
 }
+
+input, label {
+    float: right;
+    margin-right: 20px;
+}
+
