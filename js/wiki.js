@@ -69,8 +69,10 @@ function successHandler (data) {
                 this.href = this.href.replace(window.location.origin, "http://en.wikipedia.org");
             });
 
-            // remove errors
+            // strip content
             $(".error").remove();
+            $(".infobox").remove();
+            $(".thumb").remove();
             return;
         }
     }
