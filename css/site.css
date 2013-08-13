@@ -1,11 +1,10 @@
-body {
-    background-color: rgba(188, 188, 188, 0.5);
+.content {
+    margin-top: 60px;
 }
 
-.content {
-   margin-top: 60px;
+#query {
+    box-shadow: 5px 5px 10px 1px #aaa;
 }
 
 #info {
-    background-color: rgba(188, 188, 188, 0.1);
 }
