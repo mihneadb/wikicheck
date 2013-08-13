@@ -52,6 +52,7 @@ function queryWiki() {
     }
 
     action = window.setTimeout(function() {
+        $("#info").html("<img src='img/spinner.gif'>").addClass("text-center");
         $.ajax({
             url: 'http://en.wikipedia.org/w/api.php?callback=?',
             dataType: 'json',
@@ -63,6 +64,7 @@ function queryWiki() {
 }
 
 function successHandler (data) {
+    $("#info").removeClass("text-center");
     for (name in data.query.pages) {
         var page = data.query.pages;
         if ("revisions" in page[name]) {
