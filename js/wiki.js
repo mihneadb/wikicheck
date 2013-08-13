@@ -1,8 +1,19 @@
+//http://stackoverflow.com/a/5574446
+String.prototype.toProperCase = function () {
+        return this.replace(/\w\S*/g, function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+};
+
 var action;
 
 $("#query").keyup(function(event) {
-    var input = $("#query").val().trim();
-    if (!input) {
+    if (action) {
+        window.clearTimeout(action);
+    }
+
+    var input = $("#query").val().trim().toProperCase();
+    if (input === "") {
         $("#info").html("");
         return;
     }
@@ -14,12 +25,10 @@ $("#query").keyup(function(event) {
         prop: "revisions",
         rvprop: "content",
         rvsection: 0,
-        rvparse: "",
+        rvparse: true,
+        redirects: true,
     }
 
-    if (action) {
-        window.clearTimeout(action);
-    }
     action = window.setTimeout(function() {
         $.ajax({
             url: 'http://en.wikipedia.org/w/api.php?callback=?',
@@ -34,8 +43,12 @@ $("#query").keyup(function(event) {
 function successHandler (data) {
     for (name in data.query.pages) {
         var page = data.query.pages;
-        $("#info").html(page[name].revisions[0]["*"]);
+        if ("revisions" in page[name]) {
+            $("#info").html(page[name].revisions[0]["*"]);
+            return;
+        }
     }
+    $("#info").html("<p>Not found.</p>");
 }
 
 function errorHandler (err) {
