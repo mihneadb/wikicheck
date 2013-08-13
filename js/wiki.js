@@ -25,7 +25,7 @@ String.prototype.toProperCase = function () {
 
 var action;
 
-$("#query").keyup(queryWiki);
+$("#query").on("input", queryWiki);
 
 function queryWiki() {
     if (action) {
@@ -52,6 +52,7 @@ function queryWiki() {
     }
 
     action = window.setTimeout(function() {
+        $("#info").html("<img src='img/spinner.gif'>").addClass("text-center");
         $.ajax({
             url: 'http://en.wikipedia.org/w/api.php?callback=?',
             dataType: 'json',
@@ -59,10 +60,11 @@ function queryWiki() {
             success: successHandler,
             error: errorHandler
         });
-    }, 250);
+    }, 350);
 }
 
 function successHandler (data) {
+    $("#info").removeClass("text-center");
     for (name in data.query.pages) {
         var page = data.query.pages;
         if ("revisions" in page[name]) {

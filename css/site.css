@@ -6,6 +6,10 @@
     box-shadow: 5px 5px 10px 1px #aaa;
 }
 
+.text-center {
+    text-align: center;
+}
+
 #info {
     overflow: auto;
 }
