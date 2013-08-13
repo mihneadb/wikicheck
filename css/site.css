@@ -1,5 +1,5 @@
 .content {
-    margin-top: 60px;
+    padding-top: 40px;
 }
 
 #query {
@@ -7,4 +7,5 @@
 }
 
 #info {
+    overflow: auto;
 }

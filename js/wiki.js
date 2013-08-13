@@ -1,3 +1,12 @@
+var height = $(window).height() - $("#info").offset().top;
+$("#info").height(height);
+
+$(window).resize(function() {
+    var height = $(window).height() - $("#info").offset().top;
+    $("#info").height(height);
+});
+
+
 $("#query").focus();
 $(document).click(function() {
     $("#query").focus();
