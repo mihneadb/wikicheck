@@ -1,11 +1,3 @@
-var height = $(window).height() - $("#info").offset().top;
-$("#info").height(height);
-
-$(window).resize(function() {
-    var height = $(window).height() - $("#info").offset().top;
-    $("#info").height(height);
-});
-
 $("#images").change(queryWiki);
 $("#infobox").change(queryWiki);
 $("#links").change(queryWiki);
