@@ -26,7 +26,9 @@ $("#query").keyup(function(event) {
         rvprop: "content",
         rvsection: 0,
         rvparse: true,
+        rvexpandtemplates: true,
         redirects: true,
+        iwurl: true,
     }
 
     action = window.setTimeout(function() {
@@ -44,7 +46,16 @@ function successHandler (data) {
     for (name in data.query.pages) {
         var page = data.query.pages;
         if ("revisions" in page[name]) {
-            $("#info").html(page[name].revisions[0]["*"]);
+            content = page[name].revisions[0]["*"];
+            $("#info").html(content);
+
+            // fix all the links
+            $("a").each(function() {
+                this.href = this.href.replace(window.location.origin, "http://en.wikipedia.org");
+            });
+
+            // remove errors
+            $(".error").remove();
             return;
         }
     }
