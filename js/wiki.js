@@ -25,7 +25,7 @@ String.prototype.toProperCase = function () {
 
 var action;
 
-$("#query").keyup(queryWiki);
+$("#query").on("input", queryWiki);
 
 function queryWiki() {
     if (action) {
