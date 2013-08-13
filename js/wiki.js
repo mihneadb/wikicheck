@@ -60,7 +60,7 @@ function queryWiki() {
             success: successHandler,
             error: errorHandler
         });
-    }, 250);
+    }, 350);
 }
 
 function successHandler (data) {
